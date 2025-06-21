@@ -19,19 +19,19 @@
     ],
     "name": "Quiz Player",
     "slug": "quizPlayer",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/logo-square.png",
+    "icon": "./assets/logo-square-01.png",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "backgroundColor": "#1a1a1a",
     "splash": {
       "image": "./assets/logo-square.png",
-      "resizeMode": "cover",
+      "resizeMode": "contain",
       "backgroundColor": "#1a1a1a",
       "dark": {
         "image": "./assets/logo-square.png",
-        "resizeMode": "cover",
+        "resizeMode": "contain",
         "backgroundColor": "#1a1a1a"
       }
     },
@@ -53,24 +53,26 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo-square.png",
+        "foregroundImage": "./assets/logo-square-01.png",
         "backgroundColor": "#1a1a1a"
       },
+      "icon": "./assets/logo-square-01.png",
       "backgroundColor": "#1a1a1a",
       "splash": {
-        "image": "./assets/logo-square.png",
-        "resizeMode": "cover",
+        "image": "./assets/logo-square-01.png",
+        "resizeMode": "contain",
         "backgroundColor": "#1a1a1a",
         "dark": {
-          "image": "./assets/logo-square.png",
-          "resizeMode": "cover",
+          "image": "./assets/logo-square-01.png",
+          "resizeMode": "contain",
           "backgroundColor": "#1a1a1a"
         }
       },
-      "package": "com.andriiradchenko.quizPlayer"
+      "package": "com.andriiradchenko.quizPlayer",
+      "versionCode": 3
     },
     "web": {
-      "favicon": "./assets/logo-square.png",
+      "favicon": "./assets/logo-square-01.png",
       "backgroundColor": "#1a1a1a"
     },
     "extra": {

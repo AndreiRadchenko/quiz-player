@@ -70,10 +70,19 @@ const AdminScreen = () => { // Removed navigation prop, using useNavigation inst
       backgroundColor: theme.colors.background,
     },
     container: {
+      display: 'flex',
+      justifyContent: 'space-between',
       flexGrow: 1,
-      justifyContent: 'center',
-      padding: theme.spacing.lg,
+      padding: theme.spacing['4xl'],
       backgroundColor: theme.colors.background,
+    },
+    loginContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      flexGrow: 1,
+      padding: theme.spacing['4xl'],
+      backgroundColor: theme.colors.background,
+      width: '100%',
     },
     title: {
       ...theme.components.text.heading,
@@ -84,7 +93,6 @@ const AdminScreen = () => { // Removed navigation prop, using useNavigation inst
       ...theme.components.text.body,
       fontWeight: theme.fontWeight.medium,
       marginBottom: theme.spacing.xs,
-      marginTop: theme.spacing.md,
     },
     input: {
       ...theme.components.input,
@@ -102,6 +110,15 @@ const AdminScreen = () => { // Removed navigation prop, using useNavigation inst
     },
     spacer: {
       height: theme.spacing.sm,
+    },
+    button: {
+      ...theme.components.button.secondary,
+      marginBottom: theme.spacing.md,
+    },
+    buttonText: {
+      textAlign: 'center',
+      textTransform: 'uppercase',
+      color: theme.colors.primaryForeground,
     },
     statusContainer: {
       ...theme.components.card,
@@ -141,7 +158,7 @@ const AdminScreen = () => { // Removed navigation prop, using useNavigation inst
 
   if (!isPasswordVerified) {
     return (
-      <View style={styles.container}>
+      <View style={styles.loginContainer}>
         <Text style={styles.title}>{t('adminScreen.enterPassword')}</Text>
         <TextInput
           style={styles.input}
@@ -155,9 +172,17 @@ const AdminScreen = () => { // Removed navigation prop, using useNavigation inst
           returnKeyType="done"
           blurOnSubmit={true}
         />
-        <Button title={t('adminScreen.submitPassword')} onPress={handlePasswordSubmit} />
-        <View style={styles.spacer} />
-        <Button title={t('adminScreen.goBack')} onPress={() => navigation.goBack()} />
+        <TouchableOpacity style={styles.button} onPress={handlePasswordSubmit}>
+          <Text style={styles.buttonText}>
+            {t('adminScreen.submitPassword')}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.buttonText}>{t('adminScreen.goBack')}</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -166,53 +191,61 @@ const AdminScreen = () => { // Removed navigation prop, using useNavigation inst
     <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.container}>
       <Text style={styles.title}>{t('adminTitle')}</Text>
 
-      <Text style={styles.label}>{t('serverIP')}</Text>
-      <TextInput
-        style={styles.input}
-        value={inputServerIP}
-        onChangeText={setInputServerIP}
-        placeholder="e.g., 192.168.1.100"
-        placeholderTextColor={theme.colors.mutedForeground}
-        keyboardType="url"
-        autoCorrect={false}
-        autoCapitalize="none"
-        returnKeyType="next"
-        blurOnSubmit={false}
-      />
+      <View>
+        <Text style={styles.label}>{t('serverIP')}</Text>
+        <TextInput
+          style={styles.input}
+          value={inputServerIP}
+          onChangeText={setInputServerIP}
+          placeholder="e.g., 192.168.1.100"
+          placeholderTextColor={theme.colors.mutedForeground}
+          keyboardType="url"
+          autoCorrect={false}
+          autoCapitalize="none"
+          returnKeyType="next"
+          blurOnSubmit={false}
+        />
 
-      <Text style={styles.label}>{t('seatNumber')}</Text>
-      <TextInput
-        style={styles.input}
-        value={inputSeatNumber}
-        onChangeText={setInputSeatNumber}
-        placeholder="e.g., 1"
-        placeholderTextColor={theme.colors.mutedForeground}
-        keyboardType="number-pad"
-        returnKeyType="done"
-        blurOnSubmit={true}
-      />
+        <Text style={styles.label}>{t('seatNumber')}</Text>
+        <TextInput
+          style={styles.input}
+          value={inputSeatNumber}
+          onChangeText={setInputSeatNumber}
+          placeholder="e.g., 1"
+          placeholderTextColor={theme.colors.mutedForeground}
+          keyboardType="number-pad"
+          returnKeyType="done"
+          blurOnSubmit={true}
+        />
 
-      <Text style={styles.label}>{t('language')}</Text>
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={selectedLocale}
-          onValueChange={(itemValue: Locale, itemIndex: number) => {
-            setSelectedLocale(itemValue);
-          }}
-          style={styles.picker}
+        <Text style={styles.label}>{t('language')}</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={selectedLocale}
+            onValueChange={(itemValue: Locale, itemIndex: number) => {
+              setSelectedLocale(itemValue);
+            }}
+            style={styles.picker}
+          >
+            <Picker.Item label="English" value="en" />
+            <Picker.Item label="Українська" value="uk" />
+          </Picker>
+        </View>
+
+        <TouchableOpacity style={styles.button} onPress={handleSave}>
+          <Text style={styles.buttonText}>{t('save')}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.goBack()}
         >
-          <Picker.Item label="English" value="en" />
-          <Picker.Item label="Українська" value="uk" />
-        </Picker>
-      </View>
+          <Text style={styles.buttonText}>{t('adminScreen.goBack')}</Text>
+        </TouchableOpacity>
 
-      <Button title={t('save')} onPress={handleSave} />
-      <View style={styles.spacer} />
-      <Button title={t('adminScreen.goBack')} onPress={() => navigation.goBack()} />
+      </View>
 
       {/* Connection Status Display */}
       <View style={styles.statusContainer}>
-        <Text style={styles.statusTitle}>Connection Status</Text>
         
         <View style={styles.statusRow}>
           <Text style={styles.statusLabel}>WebSocket:</Text>
