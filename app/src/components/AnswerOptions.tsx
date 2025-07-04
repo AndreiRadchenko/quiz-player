@@ -36,10 +36,12 @@ export const AnswerOptions: React.FC<AnswerOptionsProps> = ({
       marginBottom: theme.spacing.sm,
       borderRadius: theme.borderRadius.md,
       borderWidth: 2,
-      borderColor: 'transparent',
+      // borderColor: 'transparent',
+      borderColor: theme.colors.sidebarBorder,
     },
     selectedOptionButton: {
-      backgroundColor: theme.colors.primaryActive,
+      // backgroundColor: theme.colors.primaryActive,
+      backgroundColor: theme.colors.secondary,
       // borderColor: theme.colors.accentHover,
     },
     submittedOptionButton: {
@@ -47,22 +49,22 @@ export const AnswerOptions: React.FC<AnswerOptionsProps> = ({
       borderColor: theme.colors.sidebarBorder,
     },
     optionText: {
-      ...theme.components.text.body,
+      // ...theme.components.text.body,
       color: theme.colors.primaryForeground,
-      fontSize: theme.fontSize.lg,
+      fontSize: theme.fontSize['2xl'],
       textAlign: 'center',
     },
     selectedOptionText: {
       ...theme.components.text.body,
       color: theme.colors.foreground,
       fontWeight: theme.fontWeight.bold,
-      fontSize: theme.fontSize.xl,
+      fontSize: theme.fontSize['2xl'],
     },
     submittedOptionText: {
       ...theme.components.text.body,
       color: theme.colors.secondaryForeground,
       fontWeight: theme.fontWeight.bold,
-      fontSize: theme.fontSize.xl,
+      fontSize: theme.fontSize['2xl'],
     },
   });
 

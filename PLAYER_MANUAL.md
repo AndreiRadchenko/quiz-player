@@ -43,6 +43,8 @@ Welcome to the Quiz Player app! This guide will help you participate in interact
   - **Backspace Tips**: 
     - Single tap: Delete one character
     - Hold for 2 seconds: Clear entire text
+  - **Ukrainian Keyboard Tips**:
+    - Long-press on 'І' to see and select 'Ї' (similar to iPhone keyboard)
 - Tap "Submit Answer" when finished typing
 
 **4. Numeric Questions**
@@ -114,6 +116,8 @@ Welcome to the Quiz Player app! This guide will help you participate in interact
   - **Поради щодо Backspace**: 
     - Одне натискання: Видалити один символ
     - Утримувати 1 секунду: Очистити весь текст
+  - **Підказки української клавіатури**:
+    - Довге натискання на 'І' для відображення та вибору 'Ї' (як у клавіатурі iPhone)
 - Натисніть "Надіслати Відповідь" після завершення введення
 
 **3. Числові Запитання**
@@ -131,6 +135,8 @@ Welcome to the Quiz Player app! This guide will help you participate in interact
 
 **Викуп**: 
 - Доступно в спеціальних раундах викупу
+- Витрачайте бали, щоб розкрити правильну відповідь
+- Обміркуйте свій баланс балів перед використанням
 
 ### Поради для Успіху
 - **Залишайтеся Підключеними**: Тримайте пристрій підключеним до WiFi/мобільних даних
@@ -141,3 +147,6 @@ Welcome to the Quiz Player app! This guide will help you participate in interact
 
 ### Вирішення Проблем
 - **Проблеми з З'єднанням**: Перевірте індикатор статусу з'єднання внизу
+- **Не Можу Вводити**: Переконайтеся, що натискаєте на область введення тексту
+- **Клавіатура Не З'являється**: Спробуйте ще раз натиснути на поле введення
+- **Додаток Заморожений**: Примусово закрийте та знову відкрийте додаток, потім дочекайтеся повторного підключення

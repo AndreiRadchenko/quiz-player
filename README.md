@@ -43,6 +43,7 @@ The Quiz Player application is a React Native mobile app designed for interactiv
   - Type using custom QWERTY keyboard (always visible)
   - Keyboard adapts to selected language (English/Ukrainian)
   - Letters appear in uppercase on keyboard but input as lowercase
+  - Ukrainian keyboard: Long-press on 'І' to see and select 'Ї' (iPhone-like behavior)
   - Backspace: Single tap deletes one character, hold for 2 seconds clears all text
 - **Submission**: Tap "Submit Answer" button
 
@@ -120,6 +121,7 @@ Located at bottom of screen, shows:
   - Друкуйте, використовуючи власну QWERTY клавіатуру (завжди видима)
   - Клавіатура адаптується до обраної мови (англійська/українська)
   - Літери вводяться великими
+  - Українська клавіатура: Утримуйте 'І' для введення 'Ї' (поведінка схожа на iPhone)
   - Backspace: Одне натискання видаляє один символ, утримування 2 секунди очищає весь текст
 - **Надсилання**: Натисніть кнопку "Надіслати Відповідь"
 

@@ -391,9 +391,9 @@ const QuestionScreen = () => {
         return;
       }
     }
-    
+    action();
     // If we have an answer or it's not a submit action, show confirmation
-    showConfirmation(type, action);
+    // showConfirmation(type, action);
   }, [currentAppTier?.questionType, selectedOption, currentAnswer, showWarning, showConfirmation]);
 
   const handleAnswerSubmit = useCallback((answer?: string, pass?: boolean, buyout?: boolean) => {

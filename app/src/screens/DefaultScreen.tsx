@@ -8,10 +8,9 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/types';
 import { useWebSocketContext } from '../context/WebSocketContext';
 import { useTheme } from '../theme';
-import { iQuizSate, BroadcastState } from '../types';
 import { ConnectionStatus } from '../components/ConnectionStatus';
 
-const logo = require('../assets/images/logo.png');
+const logo = require('../assets/images/logo-ua-comp.png');
 
 const DefaultScreen = () => {
   const { t } = useTranslation();
@@ -44,6 +43,7 @@ const DefaultScreen = () => {
       width: '80%',
       maxHeight: 150,
       marginHorizontal: 'auto',
+     opacity: 0.7,
       // marginBottom: '20%',
       // marginTop: '20%',
     },
@@ -127,7 +127,7 @@ const DefaultScreen = () => {
       {!isLoading && !error && playerData && (
         <View style={styles.playerInfoContainer}>
           <Text 
-            style={[styles.playerName, !playerData.isActive && styles.inactivePlayerName]}
+            style={[styles.playerName]}
           >
             {playerData.name}
           </Text>
@@ -153,9 +153,7 @@ const DefaultScreen = () => {
       {!isLoading && !error && playerData && playerData.isActive && quizState?.state === 'IDLE' && (
         <Text style={styles.infoText}>{t('defaultScreen.waitingForGame')}</Text>
       )}
-      {!isLoading && !error && playerData && !playerData.isActive && (
-        <Text style={styles.infoText}>{t('defaultScreen.playerInactive')}</Text>
-        )}
+
       </View>
 
     <ConnectionStatus showTitle={false } />

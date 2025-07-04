@@ -14,89 +14,84 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator = () => {
   const navigationRef = useRef<NavigationContainerRef<RootStackParamList>>(null);
-  const { playerData } = usePlayerState();
+  const { playerData, refetchPlayer } = usePlayerState();
   const { quizState, status: wsStatus } = useWebSocketContext();
-  const [lastKnownState, setLastKnownState] = useState<iQuizSate | null>(null);
-
-  // Keep track of the last known valid state
-  useEffect(() => {
-    if (quizState) {
-      setLastKnownState(quizState);
-    }
-  }, [quizState]);
-
-  // Use the effective state (current or last known)
-  const effectiveState = quizState || lastKnownState;
-
-  // Log navigation state for debugging
-  useEffect(() => {
-    if (navigationRef.current?.isReady()) {
-      const currentRoute = navigationRef.current.getCurrentRoute()?.name;
-      console.log('Navigation - Current route:', currentRoute);
-      console.log('Navigation - effectiveState:', effectiveState?.state);
-      console.log('Navigation - playerData.isActive:', playerData?.isActive);
-      console.log('Navigation - WebSocket status:', wsStatus);
-    }
-  }, [effectiveState, playerData, wsStatus]);
 
   // Handle navigation based on WebSocket state
   useEffect(() => {
     if (!navigationRef.current?.isReady()) return;
-    if (!playerData || !effectiveState) return;
-
-    if (!playerData.isActive) {
-      navigationRef.current?.reset({
-        index: 0,
-        routes: [{ name: 'Default' }],
-      });
-      return;
-    }
-
+    if (!playerData || !quizState) return;
     const currentRoute = navigationRef.current?.getCurrentRoute()?.name;
+    
+    if (playerData.isActive === false) {
+      console.log('Player is not active, navigating to Default screen');
+      if (currentRoute !== 'Default') {
+        navigationRef.current?.reset({
+          index: 0,
+          routes: [{ name: 'Default' }],
+        });
+      }
+      return;
+    } else if (playerData.isActive === true ) {
 
-    switch (effectiveState.state) {
-      case 'QUESTION_PRE':
-        if (currentRoute !== 'Prepare') {
-          console.log('Navigating to Prepare screen');
-          navigationRef.current?.navigate('Prepare');
-        }
-        break;
-
-      case 'QUESTION_OPEN':
-      case 'BUYOUT_OPEN':
-        if (currentRoute !== 'Question') {
-          console.log('Resetting to Question screen to force remount');
-          navigationRef.current?.reset({
-            index: 0,
-            routes: [{
-              name: 'Question',
-              params: {
-                timestamp: Date.now(),
-                tierNumber: effectiveState.tierNumber,
-                state: effectiveState.state
-              }
-            }],
-          });
-        }
-        break;
-
-      case 'IDLE':
-      case 'QUESTION_CLOSED':
-      case 'QUESTION_COMPLETE':
-      case 'BUYOUT_COMPLETE':
-        if (currentRoute !== 'Default') {
-          console.log('Resetting to Default screen');
-          navigationRef.current?.reset({
-            index: 0,
-            routes: [{ name: 'Default' }],
-          });
-        }
-        break;
-
-      default:
-        console.log('No navigation change for state:', effectiveState.state);
+      switch (quizState?.state) {
+        case 'QUESTION_PRE':
+          if (currentRoute !== 'Prepare') {
+            console.log('Navigating to Prepare screen');
+            navigationRef.current?.navigate('Prepare');
+            // navigationRef.current?.reset({
+            //   index: 1,
+            //   routes: [{
+            //     name: 'Prepare',
+            //     params: {
+            //       timestamp: Date.now(),
+            //       tierNumber: quizState.tierNumber,
+            //       state: quizState.state
+            //     }
+            //   }],
+            // });
+          }
+          break;
+  
+        case 'QUESTION_OPEN':
+        case 'BUYOUT_OPEN':
+          if (currentRoute !== 'Question') {
+            console.log('Resetting to Question screen to force remount');
+            navigationRef.current?.reset({
+              index: 2,
+              routes: [{
+                name: 'Question',
+                params: {
+                  timestamp: Date.now(),
+                  tierNumber: quizState.tierNumber,
+                  state: quizState.state
+                }
+              }],
+            });
+          }
+          break;
+  
+        case 'IDLE':
+        case 'QUESTION_CLOSED':
+        case 'QUESTION_COMPLETE':
+        case 'BUYOUT_COMPLETE':
+          refetchPlayer(); // Ensure player data is up-to-date
+          if (currentRoute !== 'Default') {
+            console.log('Resetting to Default screen');
+            navigationRef.current?.reset({
+              index: 0,
+              routes: [{ name: 'Default' }],
+            });
+          }
+          break;
+  
+        default:
+          console.log('No navigation change for state:', quizState?.state);
+      }
     }
-  }, [effectiveState, playerData]);
+
+
+  }, [quizState, playerData]);
 
   return (
     <NavigationContainer ref={navigationRef}>
