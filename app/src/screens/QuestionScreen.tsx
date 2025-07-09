@@ -273,7 +273,7 @@ const QuestionScreen = () => {
   // Force cache refresh by adding tier number as query parameter
   const localImageUri = useMemo(() => {
     const baseUri = FileSystem.documentDirectory + 'question.png';
-    return currentAppTier?.tierNumber ? `${baseUri}?t=${currentAppTier.tierNumber}` : baseUri;
+    return currentAppTier?.tierNumber ? `${baseUri}?t=${currentAppTier.image}` : baseUri;
   }, [currentAppTier?.tierNumber]);
 
   useEffect(() => {
