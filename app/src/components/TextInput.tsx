@@ -41,7 +41,7 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
   
   // Base button width - use the row with most buttons as reference
   const maxButtonsInRow = Math.max(row1ButtonCount, row2ButtonCount);
-  const baseButtonWidth = (keyboardWidth - (buttonSpacing * (maxButtonsInRow - 1))) / maxButtonsInRow;
+  const baseButtonWidth = (keyboardWidth - (buttonSpacing * (maxButtonsInRow - 1))) / (maxButtonsInRow+2);
   
   // All letter keys have the same size
   const letterButtonWidth = baseButtonWidth;
@@ -52,7 +52,7 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
       bottom: 60,
       left: 0,
       right: 0,
-      height: screenHeight * 0.6, // Set to 60% of screen height
+      height: screenHeight * 0.35, // Set to 60% of screen height
       backgroundColor: theme.colors.background,
       borderTopColor: theme.colors.border,
       paddingBottom: 0,
@@ -80,7 +80,7 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
       borderRadius: theme.borderRadius.md,
       paddingVertical: theme.spacing.xs,
       paddingHorizontal: theme.spacing.lg,
-      fontSize: theme.fontSize['xl'], // Increased font size for better visibility
+      fontSize: theme.fontSize['xl'],
       fontWeight: theme.fontWeight.normal,
       color: theme.colors.foreground,
       minHeight: 56,
@@ -92,15 +92,16 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
       paddingHorizontal: keyboardPadding,
       paddingTop: 0,
       paddingBottom: 0,
-      height: screenHeight * 0.45, // Set to 45% of screen height
+
+      height: screenHeight * 0.26,
       borderBottomLeftRadius: theme.borderRadius.md,
       borderBottomRightRadius: theme.borderRadius.md,
     },
     keyboardRow: {
       flexDirection: 'row',
       justifyContent: 'center',
-      marginBottom: theme.spacing.md, // Increased spacing between rows
-      gap: buttonSpacing, // Use gap for consistent spacing
+      marginBottom: theme.spacing.md, 
+      gap: buttonSpacing, 
       width: '92%',
       marginInline: 'auto',
     },
@@ -120,7 +121,7 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
       },
       shadowOpacity: 0.2,
       shadowRadius: 2,
-      width: letterButtonWidth, // All letter keys have the same size
+      width: letterButtonWidth,
     },
     keyButtonSpecial: {
       backgroundColor: theme.colors.secondary,
@@ -136,13 +137,12 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
       flexGrow: 1,
     },
     keyButtonText: {
-      fontSize: theme.fontSize['3xl'], // Increased font size to cover 90% of key
+      fontSize: theme.fontSize['3xl'],
       fontWeight: theme.fontWeight.normal,
       color: theme.colors.primaryForeground,
       textAlign: 'center',
-      width: '90%', // Letter covers 90% of key
-      height: '90%', // Letter covers 90% of key
-      textAlignVertical: 'center', // Center vertically for Android
+      height: '90%',
+      textAlignVertical: 'center',
     },
     keyButtonTextSpecial: {
       color: theme.colors.secondaryForeground,
