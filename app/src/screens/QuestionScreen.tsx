@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   Image,
-  TextInput,
   TouchableOpacity,
   ActivityIndicator,
   ScrollView,
@@ -17,8 +16,7 @@ import { usePlayerState } from '../hooks/usePlayerState';
 import { useWebSocketContext } from '../context/WebSocketContext';
 import { useTheme } from '../theme';
 import { useTiersData, getAppTier } from '../hooks/useTierState';
-import { AppTierType, iQuizSate, PlayerDataType, QuestionTypeEnum, iAnswerMessage } from '../types';
-import { getKeyboardProps } from '../utils/keyboard';
+import { AppTierType, iAnswerMessage } from '../types';
 import { AnswerOptions } from '../components/AnswerOptions';
 import { ConnectionStatus } from '../components/ConnectionStatus';
 import { ConfirmationDialog } from '../components/ConfirmationDialog';
@@ -273,8 +271,10 @@ const QuestionScreen = () => {
   // Force cache refresh by adding tier number as query parameter
   const localImageUri = useMemo(() => {
     const baseUri = FileSystem.documentDirectory + 'question.png';
-    return currentAppTier?.tierNumber ? `${baseUri}?t=${currentAppTier.image}` : baseUri;
-  }, [currentAppTier?.tierNumber]);
+    return currentAppTier?.tierNumber 
+      ? `${baseUri}?tier=${currentAppTier.tierNumber}&img=${encodeURIComponent(currentAppTier.image || '')}`
+      : baseUri;
+  }, [currentAppTier?.tierNumber, currentAppTier?.image]);
 
   useEffect(() => {
     if (!quizState) return;

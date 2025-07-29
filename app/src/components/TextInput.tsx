@@ -133,7 +133,7 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
     },
     keyButtonSpace: {
       backgroundColor: theme.colors.accent,
-      width: letterButtonWidth * 6, 
+      width: letterButtonWidth * 5, 
       flexGrow: 1,
     },
     keyButtonText: {
@@ -387,6 +387,8 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
 
         {/* Row 4: Special characters row */}
         <View style={styles.keyboardRow}>
+          {renderKeyButton('!', '!', 'special')}
+          {renderKeyButton('?', '?', 'special')}
           {renderKeyButton('.', '.', 'special')}
           {renderKeyButton(',', ',', 'special')}
           {renderKeyButton(' ', 'SPACE', 'space')}
