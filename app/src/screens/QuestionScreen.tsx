@@ -466,10 +466,15 @@ const QuestionScreen = () => {
     return !playerData.usedPassTwo && currentAppTier.passTwoAllowed;
   }, [playerData?.usedPassOne, playerData?.usedPassTwo, currentAppTier?.tierNumber, currentAppTier?.passOneAllowed, currentAppTier?.passTwoAllowed, actionTaken]);
 
-  const canUseBuyout = useMemo(() => {
+  // const canUseBuyout = useMemo(() => {
+  //   if (!playerData || actionTaken) return false;
+  //   return quizState?.state === 'BUYOUT_OPEN' && !playerData.boughtOut && !playerData.usedPassTwo;
+  // }, [quizState?.state, playerData?.boughtOut, playerData?.usedPassTwo, actionTaken]);
+
+    const canUseBuyout = () => {
     if (!playerData || actionTaken) return false;
-    return quizState?.state === 'BUYOUT_OPEN' && !playerData.boughtOut;
-  }, [quizState?.state, playerData?.boughtOut, actionTaken]);
+    return quizState?.state === 'BUYOUT_OPEN' && !playerData.boughtOut && !playerData.usedPassTwo;
+    };
 
   if (isLoadingPlayer || isLoadingTiers || (wsStatus === 'connecting' && !quizState)) {
     return (
@@ -545,7 +550,7 @@ const QuestionScreen = () => {
             <Text style={styles.actionButtonText}>{t('questionScreen.pass')}</Text>
           </TouchableOpacity>
         )}
-        {(canUseBuyout || isBuyoutTier) &&  (
+        {(canUseBuyout() && isBuyoutTier) &&  (
           <TouchableOpacity
             style={[styles.actionButton, styles.passButton, !!actionTaken && styles.disabledButton]}
             onPress={() => showConfirmation('buyout', () => handleAnswerSubmit(undefined, undefined, true))}

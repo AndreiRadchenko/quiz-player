@@ -10,8 +10,8 @@ const LOCALE_KEY = 'settings.lang'; // Same as in i18n
 
 const defaultContextValues: AppContextType = {
   seatNumber: null,
-  serverIP: null,
-  locale: 'en',
+  serverIP: '192.168.29.100',
+  locale: 'uk',
   setSeatNumber: () => {},
   setServerIP: () => {},
   setLocale: () => {},
@@ -22,8 +22,8 @@ export const AppContext = createContext<AppContextType>(defaultContextValues);
 // Update children type to only allow ReactElement (no text strings)
 export const AppProvider: React.FC<{children: ReactElement}> = ({ children }) => {
   const [seatNumber, setSeatNumberState] = useState<number | null>(null);
-  const [serverIP, setServerIPState] = useState<string | null>(null);
-  const [locale, setLocaleState] = useState<'en' | 'uk'>('en');
+  const [serverIP, setServerIPState] = useState<string | null>('192.168.29.100');
+  const [locale, setLocaleState] = useState<'en' | 'uk'>('uk');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -34,7 +34,9 @@ export const AppProvider: React.FC<{children: ReactElement}> = ({ children }) =>
         const storedLocale = await AsyncStorage.getItem(LOCALE_KEY);
 
         if (storedSeat) setSeatNumberState(parseInt(storedSeat, 10));
-        if (storedIP) setServerIPState(storedIP);
+        if (storedIP) { setServerIPState(storedIP) } else {
+          setServerIPState('192.168.29.100');
+        }
         if (storedLocale) {
           const parsedLocale = storedLocale as 'en' | 'uk';
           setLocaleState(parsedLocale);
