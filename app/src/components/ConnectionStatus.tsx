@@ -59,7 +59,7 @@ export const ConnectionStatus = (props: ConnectionStatusProps) => {
     container: {
       // ...theme.components.card,
       position: 'absolute',
-        bottom: theme.spacing.md,
+        bottom: theme.spacing.xs,
         left: theme.spacing.md,
         right: theme.spacing.md,
         // backgroundColor: `${theme.colors.card}F0`, // Semi-transparent

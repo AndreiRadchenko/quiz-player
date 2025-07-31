@@ -49,10 +49,11 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
   const styles = StyleSheet.create({
     container: {
       position: 'absolute',
-      bottom: 60,
+      bottom: 45,
       left: 0,
       right: 0,
-      height: screenHeight * 0.35, // Set to 60% of screen height
+      // height: screenHeight * 0.2, // Set to 60% of screen height
+      // height: 400,
       backgroundColor: theme.colors.background,
       borderTopColor: theme.colors.border,
       paddingBottom: 0,
@@ -92,8 +93,6 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
       paddingHorizontal: keyboardPadding,
       paddingTop: 0,
       paddingBottom: 0,
-
-      height: screenHeight * 0.26,
       borderBottomLeftRadius: theme.borderRadius.md,
       borderBottomRightRadius: theme.borderRadius.md,
     },
@@ -369,6 +368,19 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
   const memoizedKeyboard = useMemo(() => {
     return (
       <View style={styles.keyboardContainer}>
+        <View style={styles.keyboardRow}>
+          {renderKeyButton('1', '1')}
+          {renderKeyButton('2', '2')}
+          {renderKeyButton('3', '3')}
+          {renderKeyButton('4', '4')}
+          {renderKeyButton('5', '5')}
+          {renderKeyButton('6', '6')}
+          {renderKeyButton('7', '7')}
+          {renderKeyButton('8', '8')}
+          {renderKeyButton('9', '9')}
+          {renderKeyButton('0', '0')}
+          {renderKeyButton('%', '%')}
+        </View>
         {/* Row 1: First row of letters */}
         <View style={styles.keyboardRow}>
           {keyboardRows[0].map((letter) => renderKeyButton(letter, letter))}
@@ -392,6 +404,7 @@ export const CustomTextInput: React.FC<CustomTextInputProps> = ({
           {renderKeyButton('.', '.', 'special')}
           {renderKeyButton(',', ',', 'special')}
           {renderKeyButton(' ', 'SPACE', 'space')}
+          {renderKeyButton(':', ':', 'special')}
           {renderKeyButton('-', '−', 'special')}
         </View>
       </View>
