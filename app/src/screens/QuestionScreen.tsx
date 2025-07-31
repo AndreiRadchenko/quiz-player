@@ -34,11 +34,12 @@ const QuestionScreen = () => {
   const { tiersData, isLoading: isLoadingTiers, error: tiersError } = useTiersData();
 
   const [currentAnswer, setCurrentAnswer] = useState<string>('');
-  const [selectedOption, setSelectedOption] = useState<string>(''); // Track selected multiple choice option
+  const [selectedOption, setSelectedOption] = useState<string>('');
   const [actionTaken, setActionTaken] = useState<'answered' | 'passed' | 'bought_out' | null>(null);
-  const [autoAnswer, setAutoAnswer] = useState<boolean | null>(null); // Track auto answer for QUESTION_CLOSED
-  const [isBuyoutTier, setIsBuyoutTier] = useState<boolean>(false); // Track if current tier is a buyout tier
-  
+  const [autoAnswer, setAutoAnswer] = useState<boolean | null>(null); 
+  const [isBuyoutTier, setIsBuyoutTier] = useState<boolean>(false);
+  const [isBuyoutEndGameTier, setIsBuyoutEndGameTier] = useState<boolean>(false);
+
   // Confirmation dialog state
   const [confirmationDialog, setConfirmationDialog] = useState<{
     visible: boolean;
@@ -247,7 +248,9 @@ const QuestionScreen = () => {
   const currentAppTier: AppTierType | null = useMemo(() => {
     if (quizState && tiersData) {
       const currentAppTier = getAppTier(tiersData, quizState);
-      setIsBuyoutTier(!!currentAppTier?.legend.toLocaleLowerCase().trim().includes('buyout'));
+      const normalizedLegend = currentAppTier?.legend.toLocaleLowerCase().trim() || '';
+      setIsBuyoutTier(!!normalizedLegend.includes('buyout'));
+      setIsBuyoutEndGameTier(/buyout[\s\-_\.]*end[\s\-_\.]*game/.test(normalizedLegend));
       return currentAppTier;
     }
     return null;
@@ -473,7 +476,7 @@ const QuestionScreen = () => {
 
     const canUseBuyout = () => {
     if (!playerData || actionTaken) return false;
-    return quizState?.state === 'BUYOUT_OPEN' && !playerData.boughtOut && !playerData.usedPassTwo;
+      return quizState?.state === 'BUYOUT_OPEN' && (!playerData.boughtOut && !playerData.usedPassTwo || isBuyoutEndGameTier);
     };
 
   if (isLoadingPlayer || isLoadingTiers || (wsStatus === 'connecting' && !quizState)) {
