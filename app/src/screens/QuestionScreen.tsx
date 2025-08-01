@@ -442,7 +442,12 @@ const QuestionScreen = () => {
       message.boughtOut = true;
       setActionTaken('bought_out');
       console.log('📤 Sending BUYOUT message:', message);
-    } else if (answer !== undefined) {
+    } else if (buyout === false) {
+      message.boughtOut = false;
+      setActionTaken('answered');
+      console.log('📤 Sending BUYOUT message:', message);
+    }
+    else if (answer !== undefined) {
       message.answer = answer.trim();
       setActionTaken('answered');
       setAutoAnswer(false)
@@ -554,13 +559,22 @@ const QuestionScreen = () => {
           </TouchableOpacity>
         )}
         {(canUseBuyout() && isBuyoutTier) &&  (
+          <>
+            <TouchableOpacity
+            style={[styles.actionButton, styles.actionSubmitButton, !!actionTaken && styles.disabledButton]}
+              onPress={() => handleAnswerSubmit(undefined, undefined, false)}
+            disabled={!!actionTaken}
+          >
+            <Text style={[styles.actionButtonText, styles.actionSubmitButtonText]}>{t('questionScreen.buyoutReject')}</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={[styles.actionButton, styles.passButton, !!actionTaken && styles.disabledButton]}
             onPress={() => showConfirmation('buyout', () => handleAnswerSubmit(undefined, undefined, true))}
             disabled={!!actionTaken}
           >
             <Text style={styles.actionButtonText}>{t('questionScreen.buyout')}</Text>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </>
         )}
         {!isBuyoutTier &&  (
           <TouchableOpacity
@@ -606,10 +620,7 @@ const QuestionScreen = () => {
       )}
 
       {/* Action taken status messages */}
-      {/* {actionTaken === 'answered' && autoAnswer && (
-        <Text style={styles.statusText}>{t('questionScreen.answerAutoSubmitted')}</Text>
-      )} */}
-      {actionTaken === 'answered' && quizState?.state === 'QUESTION_OPEN' && (
+      {actionTaken === 'answered' && (quizState?.state === 'QUESTION_OPEN' || quizState?.state === 'BUYOUT_OPEN') && (
         <Text style={styles.statusText}>{t('questionScreen.answerSubmitted')}</Text>
       )}
       {actionTaken === 'passed' && quizState?.state === 'QUESTION_OPEN' && (

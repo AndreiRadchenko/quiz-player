@@ -37,6 +37,7 @@
     "submitAnswer": "Submit Answer",
     "pass": "Pass",
     "buyout": "Buyout",
+    "buyoutReject": "Reject",
     "noQuestionData": "Waiting for question data...",
     "tierDataMissing": "Tier data not available. Please wait...",
     "answerSubmitted": "Your answer has been submitted.",

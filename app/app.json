@@ -19,7 +19,7 @@
     ],
     "name": "Quiz Player",
     "slug": "quizPlayer",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "orientation": "portrait",
     "icon": "./assets/logo-square-02.png",
     "userInterfaceStyle": "dark",
@@ -69,7 +69,7 @@
         }
       },
       "package": "com.andriiradchenko.quizPlayer",
-      "versionCode": 14
+      "versionCode": 15
     },
     "web": {
       "favicon": "./assets/logo-square-02.png",
